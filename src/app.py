@@ -1,5 +1,5 @@
 # imports
-from dash import dash, html, dcc, Input, Output
+from dash import dash, html, dcc, Input, Output, dash_table
 import dash_bootstrap_components as dbc
 import pandas as pd
 import altair as alt
@@ -7,9 +7,15 @@ import altair as alt
 
 ####################
 # data wrangling 
-public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
-public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]  # remove nas
-neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))
+public_art_df = pd.read_csv('data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]              # remove nas
+neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))     # get list of neighbourhoods
+public_art_df['Year Of Installation'] = pd.DatetimeIndex(public_art_df['YearOfInstallation']).year  # Add a column with just year
+pa_cols = [{'name': 'Title of Work', 'id': 'Title of Work'},
+{'name': 'Type', 'id': 'Type'},
+{'name': 'Neighbourhood', 'id': 'Neighbourhood'},
+{'name': 'Year Installed', 'id': 'Year Of Installation'},
+{'name': 'SiteAddress', 'id': 'SiteAddress'}]
 # image 
 image_path = 'assets/goofyahh.png' # reference: https://blog.vancity.com/free-activity-exploring-public-art/
 
@@ -28,7 +34,7 @@ app.layout = dbc.Container([
     # image 
     html.Div([
         html.Img(src=image_path, alt='image')], 
-        style={'textAlign': 'center', 'width': '100%', 'height': '500px'}
+        style={'textAlign': 'center', 'width': '100%', 'height': '70%'}
     ),
     html.Br(), html.Br(),
     # multi-select dropdown for choosing neighbourhood
@@ -50,18 +56,45 @@ app.layout = dbc.Container([
                     value=[1, 3], 
                     marks={0: '0', 5: '5'}),
     html.Br(),
-    # display charts
-    html.H6('Charts'),
     dbc.Row([
-        dbc.Col(
-            html.P('...')
-        ),
-        dbc.Col(
+        # display charts
+        dbc.Col([
+            html.H6('Charts'),
             html.Iframe(
             id='charts',
             style={'border-width': '0', 'width': '100%', 'height': '800px'}) 
+        ]),
+        # display table 
+        dbc.Col([
+            html.H6('Data'),
+            html.Br(), html.Br(),
+            dash_table.DataTable(
+                id='table',
+                columns=pa_cols,
+                data=public_art_df.to_dict('records'),
+                page_size=10,
+                sort_action='native',
+                page_action='native',
+                fill_width=False,
+                #style={'border-width': '0', 'width': '100%', 'height': '800px'} 
+                style_data={
+                    'whiteSpace': 'normal',
+                    'height': 'auto',
+                },
+                style_data_conditional=[{
+                    'if': {'row_index': 'odd'},
+                    'backgroundColor': 'rgb(248, 248, 248)'}],
+                 style_header={
+                    'backgroundColor': 'rgb(230, 230, 230)',
+                    'fontWeight': 'bold'},
+                style_cell = {
+                'font_family': 'arial',
+                'font_size': '12px',
+                'text_align': 'center'
+                 }
             )
-    ])     
+        ])
+    ]),    
 ])
 
 #################### BACK END
