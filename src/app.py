@@ -20,27 +20,50 @@ app = dash.Dash(__name__, external_stylesheets = [dbc.themes.MINTY])
 # deployment 
 server = app.server
 
-# styles for the main content, position it to the right and add some padding 
-CONTENT_STYLE = {
-    'margin-left': '18rem',
-    'margin-right': '2rem',
-    'padding': '2rem 1rem',
-}
+#################### FRONT END
+app.layout = dbc.Container([
+    # title
+    dbc.Row(html.H2('Art in Vancouver Neighbourhoods')),
+    html.Br(), html.Br(),
+    # image 
+    html.Div([
+        html.Img(src=image_path, alt='image')], 
+        style={'textAlign': 'center', 'width': '100%', 'height': '500px'}
+    ),
+    html.Br(), html.Br(),
+    # multi-select dropdown for choosing neighbourhood
+    html.H6('Select Neighbourhood(s)'),
+    dbc.Row(
+        dbc.Col(
+            dcc.Dropdown(
+                    id='neighbourhood-widget',
+                    value=['Downtown'],  # REQUIRED to show the plot on the first page load
+                    options=[{'label': neigh, 'value': neigh} for neigh in neighbourhoods_list],
+                    multi = True
+                    )
+        )
+    ),
+    html.Br(),
+    # double-sided slider for choosing years
+    html.H6('Select Year(s)'),
+    dcc.RangeSlider(min=0, max=5, 
+                    value=[1, 3], 
+                    marks={0: '0', 5: '5'}),
+    html.Br(),
+    # display charts
+    html.H6('Charts'),
+    dbc.Row([
+        dbc.Col(
+            html.P('...')
+        ),
+        dbc.Col(
+            html.Iframe(
+            id='charts',
+            style={'border-width': '0', 'width': '100%', 'height': '800px'}) 
+            )
+    ])     
+])
 
-
-# sidebar 
-sidebar = html.Div(
-    [
-        html.H2('VanArt', className='display-4'),
-        html.P(      # paragraph
-            'Discover Public Art in Vancouver!', className='lead'
-        ),    
-    ]
-)
-
-content = html.Div(style=CONTENT_STYLE)
-
-app.layout = html.Div([sidebar, content])
 
 if __name__ == '__main__':
     app.run_server(debug=True)
