@@ -30,6 +30,8 @@ server = app.server
 app.layout = dbc.Container([
     # title
     dbc.Row(html.H2('Art in Vancouver Neighbourhoods')),
+    html.Br(),
+    html.H6('Work in progress 🛠👷🏻‍♀️'),
     html.Br(), html.Br(),
     # image 
     html.Div([
@@ -52,9 +54,10 @@ app.layout = dbc.Container([
     html.Br(),
     # double-sided slider for choosing years
     html.H6('Select Year(s)'),
-    dcc.RangeSlider(min=0, max=5, 
-                    value=[1, 3], 
-                    marks={0: '0', 5: '5'}),
+    dcc.RangeSlider(id='yearslider',
+                    min=1950, max=2022, 
+                    value=[1950, 2022], 
+                    marks={1950: '1950', 2022: '2022'}),
     html.Br(),
     dbc.Row([
         # display charts
@@ -88,7 +91,7 @@ app.layout = dbc.Container([
                     'fontWeight': 'bold'},
                 style_cell = {
                 'font_family': 'arial',
-                'font_size': '12px',
+                'font_size': '13px',
                 'text_align': 'center'
                  }
             )
