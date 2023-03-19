@@ -7,10 +7,11 @@ import altair as alt
 
 ####################
 # data wrangling 
-public_art_df = pd.read_csv('data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
 public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]              # remove nas
 neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))     # get list of neighbourhoods
-public_art_df['Year Of Installation'] = pd.DatetimeIndex(public_art_df['YearOfInstallation']).year  # Add a column with just year
+#public_art_df['Year Of Installation'] = pd.DatetimeIndex(public_art_df['YearOfInstallation']).year  # Add a column with just year
+public_art_df['Year Of Installation'] = public_art_df['YearOfInstallation'].dt.year
 pa_cols = [{'name': 'Title of Work', 'id': 'Title of Work'},
 {'name': 'Type', 'id': 'Type'},
 {'name': 'Neighbourhood', 'id': 'Neighbourhood'},
@@ -54,10 +55,13 @@ app.layout = dbc.Container([
     html.Br(),
     # double-sided slider for choosing years
     html.H6('Select Year(s)'),
-    dcc.RangeSlider(id='yearslider',
-                    min=1950, max=2022, 
+    dcc.RangeSlider(id='year-slider',
+                    min=1950, 
+                    max=2022, 
+                    step=1,
                     value=[1950, 2022], 
-                    marks={1950: '1950', 2022: '2022'}),
+                    marks={i: '{}'.format(1 * i) for i in range(1950, 2022, 10)},
+                    allowCross=False),
     html.Br(),
     dbc.Row([
         # display charts
@@ -103,12 +107,15 @@ app.layout = dbc.Container([
 # chart callback
 @app.callback(
     Output('charts', 'srcDoc'),
-    Input('neighbourhood-widget', 'value')
+    Input('neighbourhood-widget', 'value'),
+    Input('year-slider', 'value')
     )
 # (1) how many art pieces in each neighbourhood 
-def create_charts(neighbourhood):
+def create_charts(neighbourhood, years):
+    print(years[0])
     # filter the data  
     public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+    public_art_df2 = public_art_df2.query('YearOfInstallation >= @years[0] & YearOfInstallation <= @years[1]')
     # create bar chart
     bar = alt.Chart(public_art_df2).mark_bar().encode(
         x = alt.X('count()', title='Number of Art Pieces'),
@@ -130,11 +137,14 @@ def create_charts(neighbourhood):
 # table callback
 @app.callback(
     Output('table', 'data'),
-    Input('neighbourhood-widget', 'value'))
+    Input('neighbourhood-widget', 'value'),
+    Input('year-slider', 'value'))
 # update filtering of table 
-def update_table(neighbourhood):
+def update_table(neighbourhood, years):
+    print(years[0])
     #filter the data 
     public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+    public_art_df2 = public_art_df2.query('YearOfInstallation >= @years[0] & YearOfInstallation <= @years[1]')
     # create data
     data = public_art_df2.to_dict('records')
     # return 
