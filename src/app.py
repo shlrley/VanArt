@@ -64,6 +64,35 @@ app.layout = dbc.Container([
     ])     
 ])
 
+#################### BACK END
+# callback 
+@app.callback(
+    Output('charts', 'srcDoc'),
+    Input('neighbourhood-widget', 'value')
+    )
+# chart functions
+# (1) how many art pieces in each neighbourhood 
+def create_charts(neighbourhood):
+    # filter the data  
+    public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+    # create bar chart
+    bar = alt.Chart(public_art_df2).mark_bar().encode(
+        x = alt.X('count()', title='Number of Art Pieces'),
+        y = alt.Y('Neighbourhood', sort='x'),
+        tooltip = alt.Tooltip(['Neighbourhood', 'count()'])
+    ).interactive() 
+    # create line chart
+    line = alt.Chart(public_art_df2).mark_line(point=True, size=2, opacity=0.7).encode(
+        x=alt.X('YearOfInstallation', title='Year of Installation'),
+        y=alt.Y('count()', title='Number of Art Pieces'),
+        color=alt.Color('Neighbourhood'),
+        tooltip=alt.Tooltip(['YearOfInstallation', 'Neighbourhood', 'count()'])
+    ).interactive()
+    # combine charts 
+    charts = (bar & line)
+    # return 
+    return charts.to_html()
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
