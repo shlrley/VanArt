@@ -71,12 +71,11 @@ app.layout = dbc.Container([
             dash_table.DataTable(
                 id='table',
                 columns=pa_cols,
-                data=public_art_df.to_dict('records'),
+                # styling      
                 page_size=10,
                 sort_action='native',
                 page_action='native',
                 fill_width=False,
-                #style={'border-width': '0', 'width': '100%', 'height': '800px'} 
                 style_data={
                     'whiteSpace': 'normal',
                     'height': 'auto',
@@ -98,12 +97,11 @@ app.layout = dbc.Container([
 ])
 
 #################### BACK END
-# callback 
+# chart callback
 @app.callback(
     Output('charts', 'srcDoc'),
     Input('neighbourhood-widget', 'value')
     )
-# chart functions
 # (1) how many art pieces in each neighbourhood 
 def create_charts(neighbourhood):
     # filter the data  
@@ -126,6 +124,18 @@ def create_charts(neighbourhood):
     # return 
     return charts.to_html()
 
+# table callback
+@app.callback(
+    Output('table', 'data'),
+    Input('neighbourhood-widget', 'value'))
+# update filtering of table 
+def update_table(neighbourhood):
+    #filter the data 
+    public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+    # create data
+    data = public_art_df2.to_dict('records')
+    # return 
+    return data
 
 if __name__ == '__main__':
     app.run_server(debug=True)
