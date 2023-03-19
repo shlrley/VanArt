@@ -1,7 +1,20 @@
 # imports
-from dash import dash, html, dcc 
+from dash import dash, html, dcc, Input, Output
 import dash_bootstrap_components as dbc
+import pandas as pd
+import altair as alt
 
+
+####################
+# data wrangling 
+public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]  # remove nas
+neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))
+# image 
+image_path = 'assets/goofyahh.png' # reference: https://blog.vancity.com/free-activity-exploring-public-art/
+
+####################
+# styling 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.MINTY])
 
 # deployment 
