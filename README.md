@@ -10,7 +10,7 @@ Please see the proposal [here](https://github.com/UBC-MDS/VanArt/blob/main/repor
 
 ## Usage 
 
-![vanart.gif]
+![vanart](vanart.gif)
 
 **Dashboard Features** 
 
