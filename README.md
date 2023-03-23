@@ -2,7 +2,7 @@
 
 🎨 Welcome! 
 
-Visit the dashboard here: https://vanart.onrender.com/
+Visit the dashboard here: [vanart.onrender.com](https://vanart.onrender.com/)
 
 ## Proposal 
 
