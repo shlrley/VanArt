@@ -19,7 +19,7 @@ The goal of the dashboard is to help you explore art metrics in neighbourhoods a
 1. Filter Selectors (widgets) 🔽
     - All filter selection elements are displayed on the left panel of the page. 
     - You can firstly choose one or multiple neighbourhoods you wish to explore using the "Select Neighbourhood(s)" dropdown menu. 
-      - For example, do you only want to see how many art pieces are installed in your neighbourhood Kitslano? 
+      - For example, do you only want to see how many art pieces are installed in your neighbourhood Kitsilano? 
     - You can also choose a start and end date, which correspond to a period of time when art pieces were installed. This is done using the "Select Start Year" and "Select End Year" dropdown menus. 
       - For example, do you only wish to see newer art pieces, installed between 2010-2022? 
 
