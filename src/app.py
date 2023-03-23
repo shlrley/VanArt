@@ -7,7 +7,7 @@ import altair as alt
 
 ####################
 # data wrangling 
-public_art_df = pd.read_csv('data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
 public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]              # remove nas
 neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))     # get list of neighbourhoods
 public_art_df['Year Of Installation'] = public_art_df['YearOfInstallation'].dt.year
@@ -183,9 +183,6 @@ app.layout = dbc.Container([
     )
 # (1) how many art pieces in each neighbourhood 
 def create_charts(neighbourhood, startyear, endyear):
-    #print(years[0])
-    print(startyear)
-    print(endyear)
     # filter the data  
     public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
     public_art_df2 = public_art_df2.query('YearOfInstallation >= @startyear & YearOfInstallation <= @endyear')
