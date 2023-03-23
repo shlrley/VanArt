@@ -12,7 +12,7 @@ Please see the proposal for the dashboard [here](https://github.com/UBC-MDS/VanA
 
 **Dashboard Features** 
 
-The goal of the ... 
+The goal of the dashboard is to allow users to explore art metrics in neighbourhoods around Vancouver.  
   
 1. Select filters 
 
