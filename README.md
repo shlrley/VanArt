@@ -25,14 +25,14 @@ The goal of the dashboard is to help you explore art metrics in neighbourhoods a
 
 2. Graphs 📈
     - Two reactive graphs are shown on the right panel. 
-    - The first graph is a line plot of year and number of art pieces installed. It shows the trend of how many art pieces were installed per year. The lines are coloured by neighbourhood. 
+    - The first graph (different from shiny app) is a line plot of year and number of art pieces installed. It shows the trend of how many art pieces were installed per year. The lines are coloured by neighbourhood. 
       - From exploring, you may perhaps notice that more art pieces have been installed in recent years than in the past. 
     - The second graph shows a bar plot comparing neighbourhoods and how many art pieces are installed in each one. 
       - You can try selecting "Downtown" + some other neighbourhoods, and notice that Downtown has a lot of pieces installed! 
     - (**Please note: the y-axis of the second graph is 'Neighbourhoods', but the label was removed as a design choice to declutter the interface for a better user experience)
 
 3. Data table 🧮
-    - A data table is displayed on the right panel, under the two graphs. 
+    - A data table (different from shiny app) is displayed on the right panel, under the two graphs. 
     - This table is reactive and shows the exact data used to create the two graphs. 
     - It also displays information about the title of the art pieces, what "type" they are (mural, statue, etc.), as well as an address in case you're interested in visiting it. 
 
