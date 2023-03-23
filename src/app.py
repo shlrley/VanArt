@@ -53,7 +53,7 @@ app.layout = dbc.Container([
             #html.P('"Girl in Wetsuit", Elek Imredy', 
             #       style={'font-style': 'italic', 'font-size': '10px'}),
             html.Br(), 
-            html.Hr(),
+            #html.Hr(),
             # multi-select dropdown for choosing neighbourhood
             html.P('Select Neighbourhood(s)', style={'font-size': '15px'}),
             dbc.Row(
