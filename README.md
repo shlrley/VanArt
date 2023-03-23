@@ -69,6 +69,9 @@ Dash is running on http://127.0.0.1:8050/
 
 6. Paste the address in your browser (i.e Google Chrome)
 
+## License 
+
+The MIT license is used for this project, please find it [here](https://github.com/shlrley/VanArt/blob/main/LICENSE). 
 
 ## References 
 
