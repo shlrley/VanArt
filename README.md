@@ -12,6 +12,14 @@ Please see the proposal for the dashboard [here](https://github.com/UBC-MDS/VanA
 
 ### Dashboard Features 
 
+The goal of the ... 
+  
+1. Select filters 
+
+2. Charts 
+
+3. Data table 
+
 
 ### Replicate the Dashboard Locally 
 
@@ -37,7 +45,7 @@ $ cd VanArt
 $ python src/app.py
 ```
 
-5. Copy the address that shows up after the output, for example: 
+5. Copy the address in the output, for example: 
 
 ```
 Dash is running on http://127.0.0.1:8050/
@@ -49,3 +57,5 @@ Dash is running on http://127.0.0.1:8050/
 ## References 
 
 Data for this dashboard was sourced from the [City of Vancouver Open Data Portal](https://opendata.vancouver.ca/explore/dataset/public-art/export/).
+  
+This dashboard was created in fulfillment of requirements for the Masters of Data Science Program at the University of British Columbia. 
