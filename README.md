@@ -1,5 +1,7 @@
 # VanArt: Exploring Art in Vancouver Neighbourhoods
 
+![vanart](vanart.gif)
+
 Welcome! 
 
 Visit the dashboard here: [vanart](https://vanart.onrender.com/) 🎨 
@@ -9,8 +11,6 @@ Visit the dashboard here: [vanart](https://vanart.onrender.com/) 🎨
 Please see the proposal [here](https://github.com/UBC-MDS/VanArt/blob/main/reports/proposal.md).
 
 ## Usage 
-
-![vanart](vanart.gif)
 
 **Dashboard Features** 
 
