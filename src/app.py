@@ -7,7 +7,7 @@ import altair as alt
 
 ####################
 # data wrangling 
-public_art_df = pd.read_csv('data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
 public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]              # remove nas
 neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))     # get list of neighbourhoods
 public_art_df['Year Of Installation'] = public_art_df['YearOfInstallation'].dt.year
@@ -34,7 +34,6 @@ app.layout = dbc.Container([
 
     # title
     html.Br(),
-    dbc.Row(),
     dbc.Row([
         # side bar column 
         dbc.Col([
@@ -169,7 +168,8 @@ app.layout = dbc.Container([
                'padding': 20,
                'border-radius': 3},
         md=9)
-    ]),    
+    ]),   
+    #dbc.Row(html.P('hi')), 
 ])
 
 #################### BACK END
