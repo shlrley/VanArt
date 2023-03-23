@@ -10,7 +10,7 @@ Please see the proposal for the dashboard [here](https://github.com/UBC-MDS/VanA
 
 **<gif>**
 
-### Dashboard Features 
+**Dashboard Features** 
 
 The goal of the ... 
   
@@ -21,7 +21,7 @@ The goal of the ...
 3. Data table 
 
 
-### Replicate the Dashboard Locally 
+## Replicate the Dashboard Locally 
 
 Follow the steps below to run the dashboard locally on your own device: 
 
