@@ -16,24 +16,24 @@ Please see the proposal [here](https://github.com/UBC-MDS/VanArt/blob/main/repor
 
 The goal of the dashboard is to help you explore art metrics in neighbourhoods around Vancouver. To do this, the dashboard displays a single page containing drop-down selectors, two graphs, and a data table. 
   
-1. Filter Selectors (reactive elements) 🔽
+1. Filter Selectors (widgets) 🔽
     - All filter selection elements are displayed on the left panel of the page. 
     - You can firstly choose one or multiple neighbourhoods you wish to explore using the "Select Neighbourhood(s)" dropdown menu. 
       - For example, do you only want to see how many art pieces are installed in your neighbourhood Kitslano? 
     - You can also choose a start and end date, which correspond to a period of time when art pieces were installed. This is done using the "Select Start Year" and "Select End Year" dropdown menus. 
       - For example, do you only wish to see newer art pieces, installed between 2010-2022? 
 
-2. Graphs 📈
+2. Graphs and Table (reactive elements) 📈
     - Two reactive graphs are shown on the right panel. 
-    - The first graph (different from shiny app) is a line plot of year and number of art pieces installed. It shows the trend of how many art pieces were installed per year. The lines are coloured by neighbourhood. 
+    - The first graph (different from shiny app) is a line plot of year and number of art pieces installed. **The information shown is the trend of how many art pieces were installed per year.** The lines are coloured by neighbourhood. 
       - From exploring, you may perhaps notice that more art pieces have been installed in recent years than in the past. 
-    - The second graph shows a bar plot comparing neighbourhoods and how many art pieces are installed in each one. 
+    - The second graph shows a bar plot **comparing neighbourhoods and how many art pieces are installed in each one**. 
       - You can try selecting "Downtown" + some other neighbourhoods, and notice that Downtown has a lot of pieces installed! 
     - (**Please note: the y-axis of the second graph is 'Neighbourhoods', but the label was removed as a design choice to declutter the interface for a better user experience)
 
 3. Data table 🧮
     - A data table (different from shiny app) is displayed on the right panel, under the two graphs. 
-    - This table is reactive and shows the exact data used to create the two graphs. 
+    - This table is reactive and **shows the exact data used to create the two graphs**. 
     - It also displays information about the title of the art pieces, what "type" they are (mural, statue, etc.), as well as an address in case you're interested in visiting it. 
 
 
