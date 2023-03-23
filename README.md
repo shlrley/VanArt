@@ -29,6 +29,7 @@ The goal of the dashboard is to help you explore art metrics in neighbourhoods a
       - From exploring, you may perhaps notice that more art pieces have been installed in recent years than in the past. 
     - The second graph shows a bar plot comparing neighbourhoods and how many art pieces are installed in each one. 
       - You can try selecting "Downtown" + some other neighbourhoods, and notice that Downtown has a lot of pieces installed! 
+    - (**Please note: the y-axis of the second graph is 'Neighbourhoods', but the label was removed as a design choice to declutter the interface for a better user experience)
 
 3. Data table 🧮
     - A data table is displayed on the right panel, under the two graphs. 
