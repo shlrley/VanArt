@@ -7,7 +7,7 @@ import altair as alt
 
 ####################
 # data wrangling 
-public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+public_art_df = pd.read_csv('data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
 public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]              # remove nas
 neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))     # get list of neighbourhoods
 public_art_df['Year Of Installation'] = public_art_df['YearOfInstallation'].dt.year
@@ -24,7 +24,7 @@ image_2_path = 'assets/girlinwetsuit2.png' # reference: https://covapp.vancouver
 
 ####################
 # styling 
-app = dash.Dash(__name__, external_stylesheets = [dbc.themes.MINTY])
+app = dash.Dash(__name__, external_stylesheets = [dbc.themes.MORPH])
 
 # deployment 
 server = app.server
@@ -46,7 +46,8 @@ app.layout = dbc.Container([
             # image 
             html.Div([
                 html.Img(src=image_2_path, alt='image', 
-                style={'textAlign': 'center', 'width': '90%', 'height': '90%'})
+                style={'textAlign': 'center', 'width': '100%', 'height': '100%'},
+                className = 'center')
                 ],   
             ),
             #html.P('"Girl in Wetsuit", Elek Imredy', 
@@ -99,7 +100,7 @@ app.layout = dbc.Container([
             dbc.Col([
                     dbc.Row([
                         # display chart 1
-                        html.H6('Installations Over Time'),
+                        html.H6('Installations Over Time', style={'font-weight': 'bold'}),
                         html.Iframe(id='charts2',
                                     style={"display": "inline-block", 
                                            'border-width': '0', 
@@ -113,7 +114,7 @@ app.layout = dbc.Container([
                     html.Br(),
                     dbc.Row([
                         # display chart 2
-                        html.H6('Pieces per Neighbourhood'),
+                        html.H6('Pieces per Neighbourhood', style={'font-weight': 'bold'}),
                         html.Iframe(id='charts',
                                     style={"display": "inline-block", 
                                            'border-width': '0', 
@@ -128,7 +129,7 @@ app.layout = dbc.Container([
                     html.Br(),
                     dbc.Row([
                         # display table 
-                        html.H6('Data'),
+                        html.H6('Data Table', style={'font-weight': 'bold'}),
                         dash_table.DataTable(
                             id='table',
                             columns=pa_cols,
