@@ -24,7 +24,7 @@ The goal of the dashboard is to help you explore art metrics in neighbourhoods a
       - For example, do you only wish to see newer art pieces, installed between 2010-2022? 
 
 2. Map (reactive elements) 🗺
-  - A map of Vancouver with points of art pieces is shown under the "Map" tab on the right panel. 
+    - A map of Vancouver with points of art pieces is shown under the "Map" tab on the right panel. 
 
 3. Graphs (reactive elements) 📈
     - Two reactive graphs are shown on the right panel under the "Graphs" tab. 
