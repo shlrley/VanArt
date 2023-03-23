@@ -9,9 +9,9 @@ import plotly.express as px
 ####################
 # data wrangling 
 # git push 
-#public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
 # local 
-public_art_df = pd.read_csv('data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+#public_art_df = pd.read_csv('data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
 public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]              # remove nas
 neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))     # get list of neighbourhoods
 public_art_df['Year Of Installation'] = public_art_df['YearOfInstallation'].dt.year
