@@ -29,7 +29,7 @@ $ git clone git@github.com:shlrley/VanArt.git
 $ cd VanArt
 ```
 
-3. Install the requirements listed in the requirements.txt file 
+3. Install the requirements listed in the [requirements.txt](https://github.com/shlrley/VanArt/blob/main/src/requirements.txt) file 
 
 4. Run the command below 
 
