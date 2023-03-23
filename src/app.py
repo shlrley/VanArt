@@ -17,8 +17,8 @@ neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))     
 public_art_df['Year Of Installation'] = public_art_df['YearOfInstallation'].dt.year
 years_list = sorted(list(public_art_df['Year Of Installation'].unique()))       # get list of years 
 
-#start_neighbourhoods_list = ['Downtown', 'Fairview', 'Marpole', 'West End', 'Sunset', 'Oakridge']
-start_neighbourhoods_list = ['Downtown', 'DowntownEastside']
+start_neighbourhoods_list = ['Downtown', 'Fairview', 'Marpole', 'West End', 'Sunset', 'Oakridge']
+#start_neighbourhoods_list = ['Downtown', 'DowntownEastside']
 
 pa_cols = [{'name': 'Title of Work', 'id': 'Title of Work'},
 {'name': 'Type', 'id': 'Type'},
