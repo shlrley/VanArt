@@ -3,16 +3,23 @@ from dash import dash, html, dcc, Input, Output, dash_table
 import dash_bootstrap_components as dbc
 import pandas as pd
 import altair as alt
+import plotly.express as px
 
 
 ####################
 # data wrangling 
-public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+# git push 
+#public_art_df = pd.read_csv('../data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
+# local 
+public_art_df = pd.read_csv('data/public-art.csv', sep=';', parse_dates=['YearOfInstallation'])      # import
 public_art_df = public_art_df[~public_art_df.Neighbourhood.isna()]              # remove nas
 neighbourhoods_list = sorted(list(public_art_df['Neighbourhood'].unique()))     # get list of neighbourhoods
 public_art_df['Year Of Installation'] = public_art_df['YearOfInstallation'].dt.year
 years_list = sorted(list(public_art_df['Year Of Installation'].unique()))       # get list of years 
-start_neighbourhoods_list = ['Downtown', 'Fairview', 'Marpole', 'West End', 'Sunset', 'Oakridge']
+
+#start_neighbourhoods_list = ['Downtown', 'Fairview', 'Marpole', 'West End', 'Sunset', 'Oakridge']
+start_neighbourhoods_list = ['Downtown', 'DowntownEastside']
+
 pa_cols = [{'name': 'Title of Work', 'id': 'Title of Work'},
 {'name': 'Type', 'id': 'Type'},
 {'name': 'Neighbourhood', 'id': 'Neighbourhood'},
@@ -22,9 +29,15 @@ pa_cols = [{'name': 'Title of Work', 'id': 'Title of Work'},
 image_path = 'assets/goofyahh.png' # reference: https://blog.vancity.com/free-activity-exploring-public-art/
 image_2_path = 'assets/girlinwetsuit2.png' # reference: https://covapp.vancouver.ca/PublicArtRegistry/ArtworkDetail.aspx?ArtworkId=97
 
+# get latitude and longitude for map 
+public_art_df[['latitude', 'longitude']] = public_art_df.geo_point_2d.str.split(", ", expand=True).astype(float)    # cred: Robin
+
 ####################
 # styling 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.MORPH])
+
+# title
+app.title = "VanArt"
 
 # deployment 
 server = app.server
@@ -35,14 +48,14 @@ app.layout = dbc.Container([
     # title
     html.Br(),
     dbc.Row([
-        # side bar column 
+        # SIDE BAR COLUMN
         dbc.Col([
             html.Br(),
-            html.H4('Art in Vancouver Neighbourhoods', style={'font-weight': 'bold'}),
+            html.H3('Art in Vancouver Neighbourhoods', style={'font-weight': 'bold'}),
             html.Br(),
             html.P('Welcome!', style={'color': '#4682B4', 'font-weight': 'bold', 'font-size': '18px'}),
             html.P('Explore art pieces installed around Vancouver by the neighbourhood \
-                   and the years they were installed. 🎨', style={'font-size': '13px'}),
+                   and the years they were installed.', style={'font-size': '14px'}),
             # image 
             html.Div([
                 html.Img(src=image_2_path, alt='image', 
@@ -95,9 +108,12 @@ app.layout = dbc.Container([
                         'padding': 20,
                         'border-radius': 1},
                     md=3),
-        # main column 
+        # MAIN COLUMN
         dbc.Col([
             dbc.Col([
+                    # map
+                    #dcc.Graph(id='map'),
+                    #html.Br(),
                     dbc.Row([
                         # display chart 1
                         html.H6('Installations Over Time', style={'font-weight': 'bold'}),
@@ -160,12 +176,12 @@ app.layout = dbc.Container([
                         'border-radius': 3},
                     ),
                     ], 
-            style={'background-color': 'whitesmoke',
+            style={'background-color': 'E5E5E5',
                 'padding': 20,
                 'border-radius': 3},
             md=12),
         ], 
-        style={'background-color': 'whitesmoke', #EDEDED
+        style={'background-color': '#E5E5E5', #EDEDED
                'padding': 20,
                'border-radius': 3},
         md=9)
@@ -174,7 +190,45 @@ app.layout = dbc.Container([
 ])
 
 #################### BACK END
-# chart1 callback
+# map callback  
+# cred: Robin + 
+# https://plotly.com/python/scattermapbox/
+# https://plotly.com/python/mapbox-layers/
+#@app.callback(
+#    Output("map", "figure"),
+#    Input("neighbourhood-widget", "value")
+#)
+# create map 
+# cred: Robin 
+#def get_map(neighbourhood):
+#    # filter data 
+#    if neighbourhood == []:    # get all neighbourhoods
+#        public_art_df2 = public_art_df     
+#    else:   # get selected neighbourhoods
+#        public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]  
+
+#    # plot map 
+#    fig = px.scatter_mapbox(
+#        public_art_df2,
+#        lat="latitude",
+#        lon="longitude",
+#        hover_name="Title of Work",
+#        hover_data={"Neighbourhood":True,
+#                    "Year Of Installation":True,
+#                    "Type":True,
+#                    "latitude":False,
+#                    "longitude":False,
+#                    "SiteAddress":True},
+#        zoom=10.5
+#    )
+#    # mapbox style
+#    fig.update_layout(
+#        mapbox_style="carto-positron",
+#        margin={"r":0,"t":0,"l":0,"b":0},
+#    )
+#    return fig
+
+# chart 1 callback
 @app.callback(
     Output('charts', 'srcDoc'),
     Input('neighbourhood-widget', 'value'),
@@ -184,7 +238,14 @@ app.layout = dbc.Container([
 # (1) how many art pieces in each neighbourhood 
 def create_charts(neighbourhood, startyear, endyear):
     # filter the data  
-    public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+    #public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+   
+    # filter data 
+    if neighbourhood == []:    # get all neighbourhoods
+        public_art_df2 = public_art_df     
+    else:   # get selected neighbourhoods
+        public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]   
+        
     public_art_df2 = public_art_df2.query('YearOfInstallation >= @startyear & YearOfInstallation <= @endyear')
     # create bar chart
     bar = alt.Chart(public_art_df2).mark_bar().encode(
@@ -203,7 +264,7 @@ def create_charts(neighbourhood, startyear, endyear):
     charts = bar
     return charts.to_html()
 
-# chart callback
+# chart 2 callback
 @app.callback(
     Output('charts2', 'srcDoc'),
     Input('neighbourhood-widget', 'value'),
@@ -213,7 +274,14 @@ def create_charts(neighbourhood, startyear, endyear):
 # (2) years art pices were installed 
 def create_charts2(neighbourhood, startyear, endyear):
     # filter the data  
-    public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+    #public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+
+    # filter data 
+    if neighbourhood == []:    # get all neighbourhoods
+        public_art_df2 = public_art_df     
+    else:   # get selected neighbourhoods
+        public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]  
+
     public_art_df2 = public_art_df2.query('YearOfInstallation >= @startyear & YearOfInstallation <= @endyear')
     # create line chart
     line = alt.Chart(public_art_df2).mark_line(point=True, size=3, opacity=0.7).encode(
@@ -240,7 +308,14 @@ def create_charts2(neighbourhood, startyear, endyear):
 # update filtering of table 
 def update_table(neighbourhood, startyear, endyear):
     #filter the data 
-    public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+    #public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]
+
+    # filter data 
+    if neighbourhood == []:    # get all neighbourhoods
+        public_art_df2 = public_art_df     
+    else:   # get selected neighbourhoods
+        public_art_df2 = public_art_df[public_art_df['Neighbourhood'].isin(neighbourhood)]  
+
     public_art_df2 = public_art_df2.query('YearOfInstallation >= @startyear & YearOfInstallation <= @endyear')
     # create data
     data = public_art_df2.to_dict('records')
