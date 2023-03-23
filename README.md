@@ -1,6 +1,6 @@
 # VanArt: Exploring Art in Vancouver Neighbourhoods
 
-![vanart](vanart2.gif)
+<p style="text-align: center;">![vanart](vanart2.gif)</p>
 
 Welcome! 
 
