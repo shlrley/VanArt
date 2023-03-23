@@ -114,8 +114,11 @@ app.layout = dbc.Container([
                     # map
                     #dcc.Graph(id='map'),
                     #html.Br(),
+
+
+
+                    # display chart 1
                     dbc.Row([
-                        # display chart 1
                         html.H6('Installations Over Time', style={'font-weight': 'bold'}),
                         html.Iframe(id='charts2',
                                     style={"display": "inline-block", 
@@ -128,8 +131,8 @@ app.layout = dbc.Container([
                         'padding': 20,
                         'border-radius': 3},),
                     html.Br(),
+                    # display chart 2
                     dbc.Row([
-                        # display chart 2
                         html.H6('Pieces per Neighbourhood', style={'font-weight': 'bold'}),
                         html.Iframe(id='charts',
                                     style={"display": "inline-block", 
@@ -176,12 +179,12 @@ app.layout = dbc.Container([
                         'border-radius': 3},
                     ),
                     ], 
-            style={'background-color': 'E5E5E5',
+            style={'background-color': 'whitesmoke',
                 'padding': 20,
                 'border-radius': 3},
             md=12),
         ], 
-        style={'background-color': '#E5E5E5', #EDEDED
+        style={'background-color': 'whitesmoke', #E5E5E5 #EDEDED
                'padding': 20,
                'border-radius': 3},
         md=9)
