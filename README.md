@@ -73,4 +73,4 @@ Dash is running on http://127.0.0.1:8050/
 
 Data for this dashboard was sourced from the [City of Vancouver Open Data Portal](https://opendata.vancouver.ca/explore/dataset/public-art/export/).
   
-This dashboard was created in fulfillment of requirements for the Masters of Data Science Program at the University of British Columbia. 
+This dashboard was created by Shirley Zhang in fulfillment of requirements for the Masters of Data Science Program at the University of British Columbia. 
