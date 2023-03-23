@@ -1,8 +1,8 @@
 # VanArt: Exploring Art in Vancouver Neighbourhoods
 
-🎨 Welcome! 
+Welcome! 
 
-Visit the dashboard here: [vanart](https://vanart.onrender.com/).
+Visit the dashboard here: [vanart](https://vanart.onrender.com/) 🎨 
 
 ## Proposal 
 
